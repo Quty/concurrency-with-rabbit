@@ -1,0 +1,12 @@
+node_modules
+.npm
+logs
+*.log
+npm-debug.log*
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets

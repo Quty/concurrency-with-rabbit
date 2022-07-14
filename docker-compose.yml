@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  balancer:
+    image: nginx:1.23-alpine
+    depends_on:
+      - producer
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 3000:80
+    restart: on-failure
+
+  producer:
+    build: .
+    entrypoint: node /app/producer.js
+    depends_on:
+      - 'rabbitmq'
+    environment:
+      - AMQP_ADDRESS=amqp://rabbitmq
+      - QUEUE_NAME
+    restart: on-failure
+
+  consumer:
+    build: .
+    entrypoint: node /app/consumer.js
+    depends_on:
+      - 'rabbitmq'
+    environment:
+      - AMQP_ADDRESS=amqp://rabbitmq
+      - MAX_IN_PROGRESS_PER_SECOND
+      - CONSUMERS_COUNT
+      - QUEUE_NAME
+    deploy:
+      replicas: ${CONSUMERS_COUNT}
+    restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq:alpine
+    restart: on-failure

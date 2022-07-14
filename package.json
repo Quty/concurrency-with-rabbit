@@ -1,0 +1,25 @@
+{
+  "name": "concurrency-with-rabbit",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=18.2.0"
+  },
+  "scripts": {
+    "start:consumer": "node -r dotenv/config src/consumer.js",
+    "start:producer": "node -r dotenv/config src/producer.js"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Dmitry Safonov"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.0",
+    "colors": "^1.4.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}
